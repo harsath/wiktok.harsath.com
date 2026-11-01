@@ -1,6 +1,5 @@
 # wiktok.harsath.com
 TikTok-style app for exploring Wikipedia articles with infinite scrolling, bookmarking, and topic-based feeds.
-Fully static: hosted on GitHub Pages, no backend or database.
 
 ## How feeds work
 - **Article type** (default: Featured articles): live random picks from articles Wikipedia's editors
@@ -34,6 +33,6 @@ npm run clean    # if the dev server shows "Failed to resolve module specifier",
 ```
 
 ## Deploy
-Pushing to `main` builds and deploys via `.github/workflows/deploy.yml`.
+Pushing to `master` builds and deploys via `.github/workflows/deploy.yml`.
 One-time setup: repo **Settings → Pages → Source: GitHub Actions**, then set the custom domain
 `wiktok.harsath.com` there and add a DNS `CNAME` record `wiktok` → `harsath.github.io`.
