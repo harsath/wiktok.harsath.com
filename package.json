@@ -1,0 +1,20 @@
+{
+  "name": "wiktok-harsath-com",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TikTok-style Wikipedia explorer, fully static (GitHub Pages).",
+  "scripts": {
+    "start": "parcel public/index.html --port 1234 --dist-dir .parcel-dev",
+    "build": "rm -rf dist && parcel build public/index.html --public-url ./",
+    "clean": "rm -rf .parcel-cache .parcel-dev dist"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.14.4"
+  }
+}
