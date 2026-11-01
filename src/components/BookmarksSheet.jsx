@@ -3,7 +3,7 @@ import Sheet from "./Sheet";
 import { PiMagnifyingGlassLight, PiTrashLight } from "react-icons/pi";
 import { wikiUrl } from "../wiki";
 
-const BookmarksSheet = ({ bookmarks, removeBookmark, onClose }) => {
+const BookmarksSheet = ({ bookmarks, removeBookmark, onClose, onRead }) => {
   const [search, setSearch] = useState("");
 
   const filtered = bookmarks.filter(b =>
@@ -31,7 +31,15 @@ const BookmarksSheet = ({ bookmarks, removeBookmark, onClose }) => {
         {bookmarks.length > 0 && filtered.length === 0 && <p className="empty">No matches.</p>}
         {filtered.map(b => (
           <div className="saved-item" key={b.title}>
-            <a className="saved-link" href={wikiUrl(b.title)} target="_blank" rel="noopener noreferrer">
+            <a
+              className="saved-link"
+              href={wikiUrl(b.title)}
+              onClick={e => {
+                if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+                e.preventDefault();
+                onRead(b.title);
+              }}
+            >
               {b.image
                 ? <img src={b.image} alt="" className="saved-thumb" loading="lazy" />
                 : <div className="saved-thumb placeholder">{b.title[0]}</div>}

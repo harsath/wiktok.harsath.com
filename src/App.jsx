@@ -8,6 +8,7 @@ import Card from "./components/Card";
 import FeedSheet from "./components/FeedSheet";
 import BookmarksSheet from "./components/BookmarksSheet";
 import AboutSheet from "./components/AboutSheet";
+import Reader from "./components/Reader";
 import "./styles.css";
 
 const FEED_KEY = "wiktokFeed";
@@ -29,6 +30,7 @@ const App = () => {
   const [active, setActive] = useState(0);
   const [sheet, setSheet] = useState(null); // feeds | saved | about
   const [toast, setToast] = useState(null);
+  const [reading, setReading] = useState(null); // article title open in the reader
 
   const containerRef = useRef(null);
   const cardRefs = useRef([]);
@@ -116,7 +118,7 @@ const App = () => {
   // Keyboard navigation for desktop.
   useEffect(() => {
     const onKey = e => {
-      if (sheet || e.metaKey || e.ctrlKey || e.altKey || e.target.tagName === "INPUT") return;
+      if (sheet || reading || e.metaKey || e.ctrlKey || e.altKey || e.target.tagName === "INPUT") return;
       if (e.key === "ArrowDown" || e.key === "j") { e.preventDefault(); goTo(active + 1); }
       if (e.key === "ArrowUp" || e.key === "k") { e.preventDefault(); goTo(active - 1); }
       if (e.key === "s" && cards[active]) handleSave(cards[active]);
@@ -176,6 +178,7 @@ const App = () => {
             saved={isBookmarked(card.title)}
             onToggleSave={() => handleSave(card)}
             onShare={() => handleShare(card)}
+            onRead={() => setReading(card.title)}
           />
         ))}
       </main>
@@ -193,10 +196,20 @@ const App = () => {
         <BookmarksSheet
           bookmarks={bookmarks}
           removeBookmark={removeBookmark}
+          onRead={title => { setSheet(null); setReading(title); }}
           onClose={() => setSheet(null)}
         />
       )}
       {sheet === "about" && <AboutSheet onClose={() => setSheet(null)} />}
+      {reading && (
+        <Reader
+          key={reading}
+          title={reading}
+          onClose={() => setReading(null)}
+          isBookmarked={isBookmarked}
+          onToggleSave={handleSave}
+        />
+      )}
     </>
   );
 };

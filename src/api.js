@@ -4,7 +4,7 @@ const WIKI_API = "https://en.wikipedia.org/w/api.php";
 const BATCH_SIZE = 10;
 
 // Browsers can't set User-Agent; Wikimedia asks for Api-User-Agent instead.
-const HEADERS = { "Api-User-Agent": "wiktok.harsath.com (https://github.com/harsath)" };
+export const HEADERS = { "Api-User-Agent": "wiktok.harsath.com (https://github.com/harsath)" };
 
 const PAGE_PROPS = {
   prop: "extracts|pageimages",
@@ -15,7 +15,7 @@ const PAGE_PROPS = {
   pithumbsize: 1280
 };
 
-async function wikiQuery(params) {
+export async function wikiQuery(params) {
   const url = new URL(WIKI_API);
   const all = { action: "query", format: "json", formatversion: 2, origin: "*", ...params };
   Object.entries(all).forEach(([k, v]) => url.searchParams.set(k, v));

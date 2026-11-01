@@ -1,8 +1,8 @@
 import React, { forwardRef, useState } from "react";
-import { PiArrowUpRightLight, PiBookmarkSimpleFill, PiBookmarkSimpleLight, PiExportLight } from "react-icons/pi";
+import { PiArrowRightLight, PiBookmarkSimpleFill, PiBookmarkSimpleLight, PiExportLight } from "react-icons/pi";
 import { wikiUrl } from "../wiki";
 
-const Card = forwardRef(({ card, index, kicker, saved, onToggleSave, onShare }, ref) => {
+const Card = forwardRef(({ card, index, kicker, saved, onToggleSave, onShare, onRead }, ref) => {
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -28,8 +28,16 @@ const Card = forwardRef(({ card, index, kicker, saved, onToggleSave, onShare }, 
         <h1>{card.title}</h1>
         {card.desc && <p>{card.desc}</p>}
         <div className="card-foot">
-          <a className="read-link" href={wikiUrl(card.title)} target="_blank" rel="noopener noreferrer">
-            Read on Wikipedia <PiArrowUpRightLight />
+          <a
+            className="read-link"
+            href={wikiUrl(card.title)}
+            onClick={e => {
+              if (e.metaKey || e.ctrlKey || e.shiftKey) return; // still opens Wikipedia in a new tab
+              e.preventDefault();
+              onRead();
+            }}
+          >
+            Read article <PiArrowRightLight />
           </a>
           <div className="card-actions">
             <button
