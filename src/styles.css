@@ -554,7 +554,9 @@ a { color: inherit; }
 
 .about p { margin: 0 0 14px; font-size: 15px; line-height: 1.65; color: var(--text-2); }
 .about .about-lead { font-family: var(--serif); font-size: 30px; line-height: 1.2; color: var(--text); margin-bottom: 22px; }
-.about .about-lead em { color: var(--text-3); }
+.about .about-lead { margin-bottom: 8px; }
+.about .about-byline { font-size: 15px; color: var(--text-2); margin-bottom: 22px; }
+.about .about-footer { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--line); }
 .about a { text-underline-offset: 3px; text-decoration-color: rgba(255, 255, 255, 0.3); }
 .about a:hover { text-decoration-color: currentColor; }
 .about .about-meta { font-size: 13px; color: var(--text-3); margin-bottom: 8px; }
