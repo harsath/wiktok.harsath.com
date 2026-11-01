@@ -31,8 +31,3 @@ npm start        # http://localhost:1234
 npm run build    # outputs dist/
 npm run clean    # if the dev server shows "Failed to resolve module specifier", then npm start again
 ```
-
-## Deploy
-Pushing to `master` builds and deploys via `.github/workflows/deploy.yml`.
-One-time setup: repo **Settings → Pages → Source: GitHub Actions**, then set the custom domain
-`wiktok.harsath.com` there and add a DNS `CNAME` record `wiktok` → `harsath.github.io`.
