@@ -2,6 +2,11 @@
 TikTok-style app for exploring Wikipedia articles with infinite scrolling, bookmarking, and topic-based feeds.
 
 ## How feeds work
+- **Hacker News** (`data/hackernews.json`): the Wikipedia articles HN keeps linking to. `scripts/build_hackernews.py`
+  scans every HN comment and story since 2006 for Wikipedia links, follows redirects to the real article, and
+  keeps articles linked by at least 8 different people, in 3+ threads, across 2+ years. Articles that are
+  popular everywhere ("Hong Kong") need more HN links to count, so the feed leans to what HN is uniquely into.
+  HN data comes from the [open-index/hacker-news](https://huggingface.co/datasets/open-index/hacker-news) mirror (ODC-By).
 - **Article type** (default: Featured articles): live random picks from articles Wikipedia's editors
   rated [Featured](https://en.wikipedia.org/wiki/Wikipedia:Featured_articles) (~7k) or
   [Good](https://en.wikipedia.org/wiki/Wikipedia:Good_articles) (~45k), across every subject.
@@ -20,6 +25,7 @@ Feeds are defined in `src/feeds.js`.
 ```bash
 python3 scripts/export_data.py path/to/wiki_cats.db     # hand-picked feeds, from a Wiki-Indexer DB
 python3 scripts/crawl_categories.py [india-history ...]  # India feeds, via the Wikipedia API (~10 min for all)
+uv run scripts/build_hackernews.py                      # Hacker News feed (~12 GB download, ~2 h; cached in .hn-cache)
 ```
 Seed categories, depths and exclusions live at the top of `crawl_categories.py`.
 Run one crawl at a time: parallel crawls get rate-limited (HTTP 429).

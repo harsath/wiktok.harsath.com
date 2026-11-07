@@ -457,6 +457,38 @@ a { color: inherit; }
 .chip:hover { background: var(--hover); color: var(--text); }
 .chip.active { background: var(--text); border-color: var(--text); color: #000; font-weight: 500; }
 
+/* Hacker News chip: an RGB ring that spins around the button, with a soft glow behind it.
+   The chip's own background is the sharp ring, ::before a blurred copy, ::after the inner fill. */
+@property --glow-angle { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
+@keyframes glow-spin { to { --glow-angle: 360deg; } }
+
+.chip.glow {
+  --glow: conic-gradient(from var(--glow-angle), #ff004c, #ff8a00, #ffe600, #2bff88, #00c2ff, #7a5cff, #ff00d4, #ff004c);
+  position: relative;
+  isolation: isolate;
+  border-color: transparent;
+  background: var(--glow);
+  color: var(--text);
+  animation: glow-spin 3s linear infinite;
+}
+.chip.glow::before,
+.chip.glow::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  z-index: -1;
+}
+.chip.glow::before { inset: -2px; background: var(--glow); filter: blur(10px); opacity: 0.75; }
+.chip.glow::after { inset: 1.5px; background: #141414; transition: background 0.2s; }
+.chip.glow:hover { background: var(--glow); }
+.chip.glow:hover::after { background: #222; }
+.chip.glow.active { color: #000; }
+.chip.glow.active::after { background: var(--text); }
+
+@media (prefers-reduced-motion: reduce) {
+  .chip.glow { animation: none; }
+}
+
 /* Saved list */
 
 .search {

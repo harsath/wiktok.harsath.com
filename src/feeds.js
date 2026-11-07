@@ -1,5 +1,6 @@
 // Feeds come from one of two sources:
-// - `load`: a static title list in data/ (curated via Wiki-Indexer or scripts/crawl_categories.py).
+// - `load`: a static title list in data/ (curated via Wiki-Indexer, scripts/crawl_categories.py
+//   or scripts/build_hackernews.py).
 // - `query`: live random picks from Wikipedia search.
 // `group` decides where a feed shows up in the topic picker.
 
@@ -7,6 +8,11 @@
 const TYPES = {
   featured: { label: "Featured articles", query: "incategory:Featured_articles" },
   good: { label: "Good articles", query: "incategory:Good_articles" }
+};
+
+// Articles HN commenters keep linking to, mined from every comment by scripts/build_hackernews.py.
+const HN = {
+  hackernews: { label: "Hacker News", load: () => import("../data/hackernews.json") }
 };
 
 // Static strings so Parcel can code-split each list into its own lazy bundle.
@@ -57,6 +63,9 @@ export const DEFAULT_FEED = "featured";
 export const FEEDS = {
   ...Object.fromEntries(
     Object.entries(TYPES).map(([id, f]) => [id, { group: "type", ...f }])
+  ),
+  ...Object.fromEntries(
+    Object.entries(HN).map(([id, f]) => [id, { group: "hn", ...f }])
   ),
   ...Object.fromEntries(
     Object.entries(CURATED).map(([id, f]) => [id, { group: "curated", ...f }])
