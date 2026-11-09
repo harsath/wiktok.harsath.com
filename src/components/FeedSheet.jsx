@@ -3,7 +3,7 @@ import Sheet from "./Sheet";
 import { FEEDS } from "../feeds";
 
 const GROUPS = [
-  { group: "hn", title: "Hacker News", hint: "Most linked in 20 years of HN comments" },
+  { group: "hn", title: "news.ycombinator.com", hint: "Most linked in 20 years of HN comments" },
   { group: "type", title: "Article type", hint: "Rated best by Wikipedia's editors" },
   { group: "india", title: "India", hint: "From Wikipedia's India categories" },
   { group: "curated", title: "Hand-picked", hint: "Crawled from Wikipedia's category tree" },
